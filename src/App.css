@@ -158,6 +158,35 @@
   gap: 8px;
 }
 
+.section-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.section-actions button {
+  font: inherit;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-h);
+  cursor: pointer;
+}
+
+.comparison-table {
+  margin-bottom: 24px;
+}
+
+/* 日本の株式市場の慣習に合わせ、上昇は赤、下落は青で表示する */
+.diff-up {
+  color: #e5484d;
+}
+
+.diff-down {
+  color: #1c7cd6;
+}
+
 .table-actions button {
   font: inherit;
   font-size: 13px;

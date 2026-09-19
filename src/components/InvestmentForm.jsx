@@ -8,11 +8,12 @@ function todayString() {
 
 // 銘柄の新規登録・編集で共用するフォーム
 // initialValuesを渡すと編集モード、渡さないと新規登録モードになる
+// 価格は履歴として別テーブルで管理するため、編集モードでは価格を扱わない
 export function InvestmentForm({ initialValues, onSubmit, onCancel, submitting }) {
   const isEditing = Boolean(initialValues)
 
   const [symbol, setSymbol] = useState(initialValues?.symbol ?? '')
-  const [price, setPrice] = useState(initialValues?.price ?? '')
+  const [price, setPrice] = useState('')
   const [currency, setCurrency] = useState(initialValues?.currency ?? CURRENCY_OPTIONS[0])
   const [region, setRegion] = useState(initialValues?.region ?? REGION_OPTIONS[0])
   const [registeredOn, setRegisteredOn] = useState(
@@ -24,13 +25,11 @@ export function InvestmentForm({ initialValues, onSubmit, onCancel, submitting }
     e.preventDefault()
     setError(null)
 
-    const { error } = await onSubmit({
-      symbol,
-      price: Number(price),
-      currency,
-      region,
-      registeredOn,
-    })
+    const payload = isEditing
+      ? { symbol, currency, region, registeredOn }
+      : { symbol, price: Number(price), currency, region, registeredOn }
+
+    const { error } = await onSubmit(payload)
 
     if (error) {
       setError(error)
@@ -62,18 +61,20 @@ export function InvestmentForm({ initialValues, onSubmit, onCancel, submitting }
         />
       </div>
 
-      <div className="form-row">
-        <label htmlFor="price">価格</label>
-        <input
-          id="price"
-          type="number"
-          min="0"
-          step="0.01"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-      </div>
+      {!isEditing && (
+        <div className="form-row">
+          <label htmlFor="price">価格</label>
+          <input
+            id="price"
+            type="number"
+            min="0"
+            step="0.01"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+        </div>
+      )}
 
       <div className="form-row">
         <label htmlFor="currency">通貨</label>

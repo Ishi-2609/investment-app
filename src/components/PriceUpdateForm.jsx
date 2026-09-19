@@ -1,24 +1,35 @@
 import { useState } from 'react'
 
-// 登録済みの銘柄をプルダウンから選び、価格だけを更新するフォーム
+// 今日の日付を "YYYY-MM-DD" 形式で取得する
+function todayString() {
+  return new Date().toISOString().slice(0, 10)
+}
+
+// 登録済みの銘柄をプルダウンから選び、指定した日付の価格を新しい履歴として追加するフォーム
+// 既存の価格は上書きせず、investment_pricesに別レコードとして残す
 export function PriceUpdateForm({ investments, onSubmit, submitting }) {
   const [selectedId, setSelectedId] = useState('')
   const [price, setPrice] = useState('')
+  const [pricedOn, setPricedOn] = useState(todayString())
   const [error, setError] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError(null)
 
-    const { error } = await onSubmit({ id: selectedId, price: Number(price) })
+    const { error } = await onSubmit({
+      investmentId: selectedId,
+      price: Number(price),
+      pricedOn,
+    })
 
     if (error) {
       setError(error)
       return
     }
 
-    setSelectedId('')
     setPrice('')
+    setPricedOn(todayString())
   }
 
   return (
@@ -36,16 +47,22 @@ export function PriceUpdateForm({ investments, onSubmit, submitting }) {
           <option value="" disabled>
             選択してください
           </option>
-          {investments.map((investment) => (
-            <option key={investment.id} value={investment.id}>
-              {investment.symbol}（現在 {Number(investment.price).toLocaleString()} {investment.currency}）
-            </option>
-          ))}
+          {investments.map((investment) => {
+            const latest = investment.prices?.[0]
+            return (
+              <option key={investment.id} value={investment.id}>
+                {investment.symbol}
+                {latest
+                  ? `（現在 ${Number(latest.price).toLocaleString()} ${investment.currency}）`
+                  : ''}
+              </option>
+            )
+          })}
         </select>
       </div>
 
       <div className="form-row">
-        <label htmlFor="newPrice">新しい価格</label>
+        <label htmlFor="newPrice">価格</label>
         <input
           id="newPrice"
           type="number"
@@ -57,11 +74,22 @@ export function PriceUpdateForm({ investments, onSubmit, submitting }) {
         />
       </div>
 
+      <div className="form-row">
+        <label htmlFor="pricedOn">日付</label>
+        <input
+          id="pricedOn"
+          type="date"
+          value={pricedOn}
+          onChange={(e) => setPricedOn(e.target.value)}
+          required
+        />
+      </div>
+
       {error && <p className="error-message">{error}</p>}
 
       <div className="form-actions">
         <button type="submit" disabled={submitting || investments.length === 0}>
-          更新する
+          追加する
         </button>
       </div>
     </form>
