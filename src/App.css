@@ -1,0 +1,251 @@
+/* 画面中央にメッセージを表示するための共通スタイル */
+.center-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+}
+
+/* ログイン・会員登録フォーム */
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.auth-form {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.auth-form h1 {
+  font-size: 28px;
+  text-align: center;
+  margin: 0 0 24px;
+}
+
+.auth-form label {
+  font-size: 14px;
+  margin-top: 16px;
+  margin-bottom: 4px;
+  text-align: left;
+  color: var(--text-h);
+}
+
+.auth-form input {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-h);
+  box-sizing: border-box;
+}
+
+.auth-form input:focus {
+  outline: 2px solid var(--accent-border);
+  outline-offset: 1px;
+}
+
+.auth-form button {
+  font: inherit;
+  margin-top: 24px;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+.auth-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-switch {
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.error-message {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #e5484d;
+  text-align: left;
+}
+
+.success-message {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #30a46c;
+  text-align: left;
+}
+
+/* ポートフォリオ一覧画面 */
+.portfolio-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  box-sizing: border-box;
+}
+
+.portfolio-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.portfolio-header h1 {
+  font-size: 28px;
+  margin: 0;
+}
+
+.user-email {
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.portfolio-header button {
+  font: inherit;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-h);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.portfolio-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.portfolio-table th,
+.portfolio-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.portfolio-table th {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.portfolio-table td {
+  color: var(--text-h);
+}
+
+.table-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.table-actions button {
+  font: inherit;
+  font-size: 13px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text-h);
+  cursor: pointer;
+}
+
+/* 銘柄の新規登録・編集フォーム */
+.investment-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.investment-form h2 {
+  width: 100%;
+  font-size: 18px;
+  margin: 0;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-row label {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.form-row input {
+  font: inherit;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-h);
+  box-sizing: border-box;
+}
+
+.form-row input:focus {
+  outline: 2px solid var(--accent-border);
+  outline-offset: 1px;
+}
+
+.investment-form .error-message {
+  width: 100%;
+  margin: 0;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.form-actions button[type='submit'] {
+  font: inherit;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+.form-actions button[type='submit']:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-actions button[type='button'] {
+  font: inherit;
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-h);
+  cursor: pointer;
+}
