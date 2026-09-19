@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { CURRENCY_OPTIONS, REGION_OPTIONS } from '../lib/investmentOptions'
 
 // 今日の日付を "YYYY-MM-DD" 形式で取得する
 function todayString() {
@@ -12,6 +13,8 @@ export function InvestmentForm({ initialValues, onSubmit, onCancel, submitting }
 
   const [symbol, setSymbol] = useState(initialValues?.symbol ?? '')
   const [price, setPrice] = useState(initialValues?.price ?? '')
+  const [currency, setCurrency] = useState(initialValues?.currency ?? CURRENCY_OPTIONS[0])
+  const [region, setRegion] = useState(initialValues?.region ?? REGION_OPTIONS[0])
   const [registeredOn, setRegisteredOn] = useState(
     initialValues?.registered_on ?? todayString(),
   )
@@ -24,6 +27,8 @@ export function InvestmentForm({ initialValues, onSubmit, onCancel, submitting }
     const { error } = await onSubmit({
       symbol,
       price: Number(price),
+      currency,
+      region,
       registeredOn,
     })
 
@@ -36,6 +41,8 @@ export function InvestmentForm({ initialValues, onSubmit, onCancel, submitting }
       // 新規登録が成功したらフォームを空にする
       setSymbol('')
       setPrice('')
+      setCurrency(CURRENCY_OPTIONS[0])
+      setRegion(REGION_OPTIONS[0])
       setRegisteredOn(todayString())
     }
   }
@@ -56,7 +63,7 @@ export function InvestmentForm({ initialValues, onSubmit, onCancel, submitting }
       </div>
 
       <div className="form-row">
-        <label htmlFor="price">価格（円）</label>
+        <label htmlFor="price">価格</label>
         <input
           id="price"
           type="number"
@@ -66,6 +73,32 @@ export function InvestmentForm({ initialValues, onSubmit, onCancel, submitting }
           onChange={(e) => setPrice(e.target.value)}
           required
         />
+      </div>
+
+      <div className="form-row">
+        <label htmlFor="currency">通貨</label>
+        <select
+          id="currency"
+          value={currency}
+          onChange={(e) => setCurrency(e.target.value)}
+        >
+          {CURRENCY_OPTIONS.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="form-row">
+        <label htmlFor="region">投資先</label>
+        <select id="region" value={region} onChange={(e) => setRegion(e.target.value)}>
+          {REGION_OPTIONS.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="form-row">
